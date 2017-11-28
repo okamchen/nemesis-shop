@@ -1,0 +1,8 @@
+<md-button ng-click="openUploadImage()">Upload Image</md-button>
+<md-list>
+  <md-list-item ng-repeat="p in professionals" class="noright" style="border:1px">
+    <img width="50px" ng-src="{{'image/' + p.image}}" class="md-avatar photo"> 
+    <span style="width:70%">{{ p.id + ' - ' + p.nickname }}</span>
+    <md-checkbox ng-model="p.active" ng-disabled="true" aria-label="active"></md-checkbox>
+  </md-list-item>
+</md-list>

@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Nemesis</title>
+  <link rel="stylesheet" href="css/angular-material.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="imageApp" ng-controller="mainController" ng-init="init()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 md-truncate flex>Nemesis Shop</h2>
+      </div>
+    </div>
+  </md-toolbar>
+  <md-card class="principal-card">
+    <md-toolbar class="md-hue-1">
+      <div class="md-toolbar-tools">
+        <h4 md-truncate flex>{{currentMenu.name}}</h4>
+      </div>
+    </md-toolbar>
+    <div ng-view=""></div>
+  </md-card >
+  <footer>
+    <small>Image Store</small>
+  </footer>
+
+  <script src="js/angular.js"></script>
+  <script src="js/angular-animate.js"></script>
+  <script src="js/angular-aria.js"></script>
+
+  <script src="js/angular-material.js"></script>
+  <script src="js/angular-route.js"></script>
+
+  <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
+  <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
+
+
+  <script src="App/modules/app.js"></script>
+
+  <script src="App/controllers/loginController.js"></script>
+  <script src="App/controllers/mainController.js"></script>
+  <script src="App/controllers/imageController.js"></script>
+  <script src="App/controllers/uploadController.js"></script>
+</body>
+
+</html>

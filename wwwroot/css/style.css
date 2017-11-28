@@ -1,0 +1,12 @@
+.principal-card{
+  max-width:500px;
+  margin:50px;
+  border-radius:7px;
+  overflow: hidden;
+}
+
+.photo{
+  border-radius:50%;
+  margin-right:10px;
+  cursor:pointer;
+}

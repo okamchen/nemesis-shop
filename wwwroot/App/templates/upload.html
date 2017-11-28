@@ -1,0 +1,8 @@
+<form layout-align="center center" ng-controller="uploadController as up" name="up.upload_form" style="padding:10px">
+  <img style="width:100px;border-radius:50%" ng-show="!!up.file" ngf-thumbnail="up.file || '/img/select-image.svg'" />
+  <h4 style="text-align:center">{{up.file.name}}</h4>
+  <input id="input-file-id" class="ng-hide" type="file" ngf-select ng-model="up.file" name="file" ngf-pattern="'image/*'" accept="image/*"
+    ngf-max-size="1MB" />
+  <label for="input-file-id" class="md-button md-primary">Escolher</label>
+  <md-button type="submit" class="md-primary md-raised" ng-click="up.submit()">Enviar</md-button>
+</form>
