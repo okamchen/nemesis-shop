@@ -5,17 +5,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LojaNemesis.Auth
 {
-    public sealed class JwtToken
+  public sealed class JwtToken
+  {
+    private JwtSecurityToken token;
+    internal JwtToken(JwtSecurityToken token)
     {
-        private JwtSecurityToken token;
-
-        internal JwtToken(JwtSecurityToken token)
-        {
-            this.token = token;
-        }
-
-        public DateTime ValidTo => token.ValidTo;
-
-        public string Value => new JwtSecurityTokenHandler().WriteToken(token);
+      this.token = token;
     }
+    public DateTime ValidTo => token.ValidTo;
+    public string Value => new JwtSecurityTokenHandler().WriteToken(token);
+  }
 }

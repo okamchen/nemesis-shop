@@ -1,7 +1,17 @@
+using LojaNemesis.ViewModel;
+
 namespace LojaNemesis.Infra.Models
 {
   public class Usuario
   {
+    public Usuario() { }
+    public Usuario(CreateUserViewModel u)
+    {
+      Login = u.Login;
+      Email = u.Email;
+      Tipo = u.Tipo;
+      Password = u.Password;
+    }
     public int Id { get; set; }
     public string Login { get; set; }
     public string Email { get; set; }

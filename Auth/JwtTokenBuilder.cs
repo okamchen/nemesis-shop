@@ -7,37 +7,30 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LojaNemesis.Auth
 {
-    public class JwtTokenBuilder
+  public class JwtTokenBuilder
+  {
+    private Dictionary<string, string> claims = new Dictionary<string, string>();
+
+    private int expiryInMinutes = 30;
+
+    public JwtTokenBuilder(Dictionary<string, string> claims)
     {
-        private SecurityKey securityKey = null;
-
-        private Dictionary<string, string> claims = new Dictionary<string, string>();
-
-        private int expiryInMinutes = 3000;
-
-        public JwtTokenBuilder(SecurityKey securityKey, Dictionary<string, string> claims, int expiryInMinutes)
-        {
-            this.securityKey = securityKey;
-            this.claims = claims;
-            this.expiryInMinutes = expiryInMinutes;
-        }
-
-        public JwtToken Build()
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim("claim_teste", "Teste Token Core 2.0")
-            }.Union(this.claims.Select(item => new Claim(item.Key, item.Value)));
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
-                signingCredentials: new SigningCredentials(
-                    this.securityKey,
-                    SecurityAlgorithms.HmacSha256
-                )
-            );
-            return new JwtToken(token);
-        }
+      this.claims = claims;
     }
+
+    public JwtToken Build()
+    {
+      var claims = this.claims.Select(item => new Claim(item.Key, item.Value)).ToList();
+
+      var token = new JwtSecurityToken(
+          claims: claims,
+          expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
+          signingCredentials: new SigningCredentials(
+              JwtSecurityKey.Create(),
+              SecurityAlgorithms.HmacSha256
+          )
+      );
+      return new JwtToken(token);
+    }
+  }
 }

@@ -10,7 +10,6 @@ namespace LojaNemesis.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [Produces("application/json")]
     public class CategoriaController : Controller
     {
         private AppDbContext context;
