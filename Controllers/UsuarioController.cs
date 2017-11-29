@@ -64,13 +64,7 @@ namespace LojaNemesis.Controllers
 
       context.Usuario.Add(new Usuario(model));
       context.SaveChanges();
-
-      user = context.Usuario.First(p => p.Email == model.Email);
-      var claims = new Dictionary<string, string>();
-      claims.Add("UserId", user.Id.ToString());
-      claims.Add("Role", user.Tipo);
-      var token = new JwtTokenBuilder(claims).Build();
-      return Ok(token.Value);
+      return Ok();
     }
 
     [HttpPut]
@@ -105,11 +99,12 @@ namespace LojaNemesis.Controllers
     }
 
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public IActionResult Delete(int id)
     {
       var user = context.Usuario.FirstOrDefault(p => p.Id == id);
       context.Remove(user);
       context.SaveChanges();
+      return Ok();
     }
   }
 }

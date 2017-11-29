@@ -22,9 +22,9 @@ angular.module('nemesisApp', ['ngRoute', 'ngMaterial'])
             });
     })
     .run(function ($rootScope, $location, $http) {
-        $rootScope.token = localStorage.getItem('nemesisToken');
-        if ($rootScope.token) {
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.token;
+        $rootScope.user = JSON.parse(localStorage.getItem('nemesisUser'));
+        if ($rootScope.user) {
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.user.token;
             $location.path('/category');
         }
         else

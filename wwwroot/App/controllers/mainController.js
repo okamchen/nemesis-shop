@@ -1,11 +1,6 @@
 angular.module('nemesisApp').controller('mainController',
   function ($scope, $mdSidenav, $rootScope, $location, $http, $mdDialog) {
 
-    $scope.toggleLeft = buildToggler('left');
-
-    $scope.email = $rootScope.user ? $rootScope.user.email : '';
-    $scope.image = $rootScope.user && $rootScope.user.image ? 'image/' + $rootScope.user.image : 'img/menu.svg'
-
     $scope.init = function () {
       if ($location.path() != '/login') {
         var menu = $scope.menus[0];
@@ -14,10 +9,23 @@ angular.module('nemesisApp').controller('mainController',
       }
     }
 
-    $scope.menus = [
-      { name: 'Categorias', location: '/category' },
-      { name: 'Usuários', location: '/users' }
-    ];
+    if (!$rootScope.user)
+      return;
+
+    $scope.toggleLeft = buildToggler('left');
+
+    $scope.email = $rootScope.user.email;
+    $scope.image = $rootScope.user.image ? 'image/' + $rootScope.user.image : 'img/menu.svg'
+
+    $scope.menus = [];
+
+    if ($rootScope.user.tipo.toUpperCase() == 'ADMIN'){
+      $scope.menus.push({ name: 'Categorias', location: '/category' });
+      $scope.menus.push({ name: 'Usuários', location: '/users' });
+      $scope.menus.push({ name: 'Produtos', location: '/product' });      
+    }
+
+    $scope.menus.push({ name: 'Pedidos', location: '/orders' });
 
     $scope.changeLocation = function (menu) {
       $location.path(menu.location);
@@ -36,7 +44,7 @@ angular.module('nemesisApp').controller('mainController',
     };
 
     $scope.logout = function () {
-      localStorage.removeItem('rentUser');
+      localStorage.removeItem('nemesisUser');
       location.reload();
     }
 

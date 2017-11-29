@@ -28,7 +28,7 @@ namespace LojaNemesis.Controllers
       claims.Add("UserId", user.Id.ToString());
       claims.Add("Role", user.Tipo);
       var token = new JwtTokenBuilder(claims).Build();
-      return Ok(token.Value);
+      return Ok(new { token = token.Value, user = new UserViewModel(user) });
     }
   }
 }
