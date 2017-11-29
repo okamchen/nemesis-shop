@@ -15,12 +15,12 @@ namespace LojaNemesis.Controllers
     public TokenController(AppDbContext context) { this.context = context; }
 
     [HttpPost]
-    public IActionResult Post(LoginViewModel model)
+    public IActionResult Post([FromBody]LoginViewModel model)
     {
-      if (string.IsNullOrEmpty(model.Email) || string.IsNullOrEmpty(model.Password))
+      if (string.IsNullOrEmpty(model.Login) || string.IsNullOrEmpty(model.Password))
         return Unauthorized();
 
-      var user = context.Usuario.FirstOrDefault(p => p.Email == model.Email);
+      var user = context.Usuario.FirstOrDefault(p => p.Login == model.Login);
       if (user == null || user.Password != model.Password)
         return Unauthorized();
 

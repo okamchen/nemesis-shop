@@ -1,0 +1,6 @@
+<md-list>
+  <md-list-item ng-repeat="p in users" class="noright" ng-click="remove(p, $event)">
+        {{ p.id + ' - ' + p.login }}
+      </md-list-item>
+</md-list>
+<img alt="add" width="20px" style="margin-bottom:10px;margin-left:10px;cursor:pointer" ng-src="img/add.svg" class="md-avatar" ng-click="new()">

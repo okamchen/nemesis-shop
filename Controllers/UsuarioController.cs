@@ -42,7 +42,7 @@ namespace LojaNemesis.Controllers
     }
 
     [HttpPost]
-    public IActionResult Post(CreateUserViewModel model)
+    public IActionResult Post([FromBody]CreateUserViewModel model)
     {
       if (!ModelState.IsValid)
         throw new ValidateException()
@@ -74,7 +74,7 @@ namespace LojaNemesis.Controllers
     }
 
     [HttpPut]
-    public IActionResult Put(UserViewModel model)
+    public IActionResult Put([FromBody]UserViewModel model)
     {
       if (!ModelState.IsValid)
         throw new ValidateException()

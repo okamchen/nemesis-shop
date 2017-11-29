@@ -1,27 +1,31 @@
-angular.module('imageApp', ['ngRoute', 'ngMaterial', 'ngFileUpload'])
+angular.module('nemesisApp', ['ngRoute', 'ngMaterial'])
     .config(function ($routeProvider, $mdThemingProvider) {
+
         $mdThemingProvider.theme('default').dark()
-        //$mdThemingProvider.theme('default').primaryPalette('red')
 
         $routeProvider
             .when("/login", {
                 templateUrl: "App/templates/login.html",
                 controller: 'loginController'
             })
-            .when("/images", {
-                templateUrl: "App/templates/images.html",
-                controller: 'imageController'
+            .when("/category", {
+                templateUrl: "App/templates/category.html",
+                controller: 'categoryController'
             })
-            .otherwise("/login", {
-                templateUrl: "App/templates/login.html",
-                controller: 'loginController'
+            .when("/users", {
+                templateUrl: "App/templates/user.html",
+                controller: 'userController'
+            })
+            .otherwise("/category", {
+                templateUrl: "App/templates/category.html",
+                controller: 'categoryController'
             });
     })
     .run(function ($rootScope, $location, $http) {
-        $rootScope.token = localStorage.getItem('imageToken');
+        $rootScope.token = localStorage.getItem('nemesisToken');
         if ($rootScope.token) {
-            $http.defaults.headers.common.token = $rootScope.token;
-            $location.path('/images');
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + $rootScope.token;
+            $location.path('/category');
         }
         else
             $location.path('/login');

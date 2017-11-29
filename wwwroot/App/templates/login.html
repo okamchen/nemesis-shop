@@ -8,7 +8,9 @@
         <label>Password</label>
         <input type="password" ng-model="password">
     </md-input-container>
-    <br />
-    <md-button class="md-primary md-raised" type="button" ng-click="login()">Login</md-button>
-    <br />
+    
+    <div>
+        <md-button class="md-primary md-raised" type="button" ng-click="login()">Login</md-button>
+        <span style="color: #F77">{{error}}</span>
+    </div>
 </div>

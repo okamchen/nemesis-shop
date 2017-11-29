@@ -7,10 +7,24 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body ng-app="imageApp" ng-controller="mainController" ng-init="init()">
+<body ng-app="nemesisApp" ng-controller="mainController" ng-init="init()">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2 md-truncate flex>Nemesis Shop</h2>
+      <img ng-show="user" alt="Menu" width="20px" style="margin-right:10px;cursor:pointer" ng-src="img/menu.svg" class="md-avatar" ng-click="toggleLeft()">
+      <h2 md-truncate flex ng-click="toggleLeft()">Nemesis Shop</h2>
+      <div ng-show="email" class="md-toolbar-tools" style="width: 30%" layout-align="end center">
+        <div style="margin-right:25px">{{email}}</div>
+        <md-menu md-offset="60">
+          <img alt="Menu" width="50px" ng-src="{{image}}" class="md-avatar photo" ng-click="openMenu($mdOpenMenu, $event)">
+          <md-menu-content width="2">
+            <md-menu-item>
+              <md-button class="md-primary">Mudar Senha</md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button class="md-primary" onclick="angular.element(this).scope().logout()">Sair</md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
     </div>
   </md-toolbar>
@@ -21,10 +35,24 @@
       </div>
     </md-toolbar>
     <div ng-view=""></div>
-  </md-card >
+  </md-card>
   <footer>
-    <small>Image Store</small>
+    <small>Nemesis Shop</small>
   </footer>
+
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="2" style="width:200px">
+
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Menu</h1>
+    </md-toolbar>
+
+    <md-list layout-margin="" style="max-height: 300px">
+      <md-list-item ng-repeat="u in menus" ng-click="changeLocation(u, $event)" class="noright">
+        {{ u.name }}
+      </md-list-item>
+    </md-list>
+
+  </md-sidenav>
 
   <script src="js/angular.js"></script>
   <script src="js/angular-animate.js"></script>
@@ -33,16 +61,12 @@
   <script src="js/angular-material.js"></script>
   <script src="js/angular-route.js"></script>
 
-  <script type="text/javascript" src="js/ng-file-upload.min.js"></script>
-  <script type="text/javascript" src="js/ng-file-upload-shim.min.js"></script>
-
-
   <script src="App/modules/app.js"></script>
 
+  <script src="App/controllers/userController.js"></script>
   <script src="App/controllers/loginController.js"></script>
   <script src="App/controllers/mainController.js"></script>
-  <script src="App/controllers/imageController.js"></script>
-  <script src="App/controllers/uploadController.js"></script>
+  <script src="App/controllers/categoryController.js"></script>
 </body>
 
 </html>
