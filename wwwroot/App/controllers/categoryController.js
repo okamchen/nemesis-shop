@@ -49,8 +49,18 @@ angular.module('nemesisApp').controller('categoryController', function ($scope, 
 
     $mdDialog.show(confirm).then(function (name) {
       $http.post('api/categoria/', { nome: name })
-        .then(res => {
-          $scope.refresh();
+        .then(response => {
+          const errors = response.data.errors
+          if (errors) {
+            $mdDialog.show(
+              $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title(errors[0])
+                .ariaLabel('Alert Dialog Demo')
+                .ok('OK')
+            )
+          } else
+            $scope.refresh()
         });
     });
   }

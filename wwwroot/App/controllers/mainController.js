@@ -20,8 +20,8 @@ angular.module('nemesisApp').controller('mainController',
     $scope.menus = [];
 
     if ($rootScope.user.tipo.toUpperCase() == 'ADMIN'){
-      $scope.menus.push({ name: 'Categorias', location: '/category' });
       $scope.menus.push({ name: 'Usuários', location: '/users' });
+      $scope.menus.push({ name: 'Categorias', location: '/category' });      
       $scope.menus.push({ name: 'Produtos', location: '/product' });      
     }
 

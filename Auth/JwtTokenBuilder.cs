@@ -11,7 +11,7 @@ namespace LojaNemesis.Auth
   {
     private Dictionary<string, string> claims = new Dictionary<string, string>();
 
-    private int expiryInMinutes = 30;
+    private int expiryInMinutes = 1000;
 
     public JwtTokenBuilder(Dictionary<string, string> claims)
     {

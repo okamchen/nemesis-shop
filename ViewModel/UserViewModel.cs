@@ -25,9 +25,6 @@ namespace LojaNemesis.ViewModel
     [EmailAddress(ErrorMessage = "Email inválido")]
     public string Email { get; set; }
 
-    [RequiredField("Password")]
-    [MinFieldLength("Password", 6)]
-
     [TypeUserField]
     public string Tipo { get; set; }
   }

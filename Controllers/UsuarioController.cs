@@ -76,7 +76,7 @@ namespace LojaNemesis.Controllers
           Errors = (ModelState.Values.SelectMany(p => p.Errors).Select(p => p.ErrorMessage))
         };
 
-      Usuario user = context.Usuario.FirstOrDefault(p => p.Id == model.Id && (p.Email == model.Email || p.Login == model.Login));
+      Usuario user = context.Usuario.FirstOrDefault(p => p.Id != model.Id && (p.Email == model.Email || p.Login == model.Login));
 
       if (user != null)
       {
@@ -87,6 +87,9 @@ namespace LojaNemesis.Controllers
           errors.Add("O 'Email' informado já está sendo usado.");
         throw new ValidateException() { Errors = errors };
       }
+
+      if (model.Tipo.ToUpper() != "ADMIN" && context.Usuario.FirstOrDefault(p => p.Id != model.Id && p.Tipo.ToUpper() == "ADMIN") == null)
+        throw new ValidateException("O único administrador não pode ter seu privilégio removido." );
 
       user = context.Usuario.Find(model.Id);
       user.Email = model.Email;
@@ -102,6 +105,8 @@ namespace LojaNemesis.Controllers
     public IActionResult Delete(int id)
     {
       var user = context.Usuario.FirstOrDefault(p => p.Id == id);
+      if (user?.Tipo?.ToUpper() == "ADMIN" && context.Usuario.FirstOrDefault(p => p.Id != id && p.Tipo.ToUpper() == "ADMIN") == null)
+        throw new ValidateException("O único administrador não pode ser removido." );
       context.Remove(user);
       context.SaveChanges();
       return Ok();

@@ -1,3 +1,7 @@
+body{
+  background-image:url(/img/guns.jpg)
+}
+
 .principal-card{
   max-width:500px;
   margin:50px;
@@ -9,4 +13,12 @@
   border-radius:50%;
   margin-right:10px;
   cursor:pointer;
+}
+
+.error-message{
+  color: #F77;
+}
+
+.input-container-1{
+ margin: 0px; 
 }
