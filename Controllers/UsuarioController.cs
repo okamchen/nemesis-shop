@@ -14,13 +14,9 @@ namespace LojaNemesis.Controllers
 {
   [Authorize]
   [Route("api/[controller]")]
-  public class UsuarioController : Controller
+  public class UsuarioController : BaseController
   {
-    private AppDbContext context;
-    public UsuarioController(AppDbContext context)
-    {
-      this.context = context;
-    }
+    public UsuarioController(AppDbContext context) : base(context) { }
 
     [HttpGet]
     public IActionResult Get()
@@ -44,11 +40,7 @@ namespace LojaNemesis.Controllers
     [HttpPost]
     public IActionResult Post([FromBody]CreateUserViewModel model)
     {
-      if (!ModelState.IsValid)
-        throw new ValidateException()
-        {
-          Errors = (ModelState.Values.SelectMany(p => p.Errors).Select(p => p.ErrorMessage))
-        };
+      ValidateModel();
 
       Usuario user = context.Usuario.FirstOrDefault(p => p.Email == model.Email || p.Login == model.Login);
 
@@ -70,11 +62,7 @@ namespace LojaNemesis.Controllers
     [HttpPut]
     public IActionResult Put([FromBody]UserViewModel model)
     {
-      if (!ModelState.IsValid)
-        throw new ValidateException()
-        {
-          Errors = (ModelState.Values.SelectMany(p => p.Errors).Select(p => p.ErrorMessage))
-        };
+      ValidateModel();
 
       Usuario user = context.Usuario.FirstOrDefault(p => p.Id != model.Id && (p.Email == model.Email || p.Login == model.Login));
 
@@ -89,7 +77,7 @@ namespace LojaNemesis.Controllers
       }
 
       if (model.Tipo.ToUpper() != "ADMIN" && context.Usuario.FirstOrDefault(p => p.Id != model.Id && p.Tipo.ToUpper() == "ADMIN") == null)
-        throw new ValidateException("O único administrador não pode ter seu privilégio removido." );
+        throw new ValidateException("O único administrador não pode ter este privilégio removido.");
 
       user = context.Usuario.Find(model.Id);
       user.Email = model.Email;
@@ -106,7 +94,7 @@ namespace LojaNemesis.Controllers
     {
       var user = context.Usuario.FirstOrDefault(p => p.Id == id);
       if (user?.Tipo?.ToUpper() == "ADMIN" && context.Usuario.FirstOrDefault(p => p.Id != id && p.Tipo.ToUpper() == "ADMIN") == null)
-        throw new ValidateException("O único administrador não pode ser removido." );
+        throw new ValidateException("O único administrador não pode ser removido.");
       context.Remove(user);
       context.SaveChanges();
       return Ok();

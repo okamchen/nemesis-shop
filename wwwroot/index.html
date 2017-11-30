@@ -11,7 +11,7 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <img ng-show="user" alt="Menu" width="20px" style="margin-right:10px;cursor:pointer" ng-src="img/menu.svg" class="md-avatar" ng-click="toggleLeft()">
-      <h2 md-truncate flex ng-click="toggleLeft()">Nemesis Shop</h2>
+      <h2 md-truncate flex>Nemesis Shop</h2>
       <div ng-show="email" class="md-toolbar-tools" style="width: 35%" layout-align="end center">
         <div style="margin-right:25px">{{email + ' | Administrador'}}</div>
         <md-menu md-offset="60">
@@ -67,6 +67,8 @@
   <script src="App/controllers/loginController.js"></script>
   <script src="App/controllers/mainController.js"></script>
   <script src="App/controllers/categoryController.js"></script>
+  <script src="App/controllers/productController.js"></script>
+  <script src="App/controllers/orderController.js"></script>
 </body>
 
 </html>

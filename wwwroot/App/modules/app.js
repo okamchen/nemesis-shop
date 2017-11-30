@@ -16,9 +16,13 @@ angular.module('nemesisApp', ['ngRoute', 'ngMaterial'])
                 templateUrl: "App/templates/user.html",
                 controller: 'userController'
             })
-            .otherwise("/category", {
-                templateUrl: "App/templates/category.html",
-                controller: 'categoryController'
+            .when("/product", {
+                templateUrl: "App/templates/product.html",
+                controller: 'productController'
+            })
+            .otherwise("/order", {
+                templateUrl: "App/templates/order.html",
+                controller: 'orderController'
             });
     })
     .run(function ($rootScope, $location, $http) {

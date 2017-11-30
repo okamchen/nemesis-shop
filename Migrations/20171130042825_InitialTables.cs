@@ -22,20 +22,6 @@ namespace LojaNemesis.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Preco",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Data = table.Column<int>(type: "INTEGER", nullable: false),
-                    Valor = table.Column<decimal>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Preco", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Usuario",
                 columns: table => new
                 {
@@ -76,8 +62,7 @@ namespace LojaNemesis.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     CategoriaId = table.Column<int>(type: "INTEGER", nullable: true),
                     DataValidade = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Nome = table.Column<string>(type: "TEXT", nullable: true),
-                    ValorId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Nome = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -88,10 +73,25 @@ namespace LojaNemesis.Migrations
                         principalTable: "Categoria",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Preco",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Data = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ProdutoId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Valor = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Preco", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produto_Preco_ValorId",
-                        column: x => x.ValorId,
-                        principalTable: "Preco",
+                        name: "FK_Preco_Produto_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -130,14 +130,14 @@ namespace LojaNemesis.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Preco_ProdutoId",
+                table: "Preco",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produto_CategoriaId",
                 table: "Produto",
                 column: "CategoriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produto_ValorId",
-                table: "Produto",
-                column: "ValorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VendaProduto_PrecoId",
@@ -164,16 +164,16 @@ namespace LojaNemesis.Migrations
                 name: "VendaProduto");
 
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "Preco");
 
             migrationBuilder.DropTable(
                 name: "Venda");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Produto");
 
             migrationBuilder.DropTable(
-                name: "Preco");
+                name: "Categoria");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace LojaNemesis.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Categoria", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Categoria", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -31,21 +31,25 @@ namespace LojaNemesis.Migrations
                     b.ToTable("Categoria");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Preco", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Preco", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Data");
+                    b.Property<DateTime>("Data");
+
+                    b.Property<int?>("ProdutoId");
 
                     b.Property<decimal>("Valor");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProdutoId");
+
                     b.ToTable("Preco");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Produto", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Produto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -56,18 +60,14 @@ namespace LojaNemesis.Migrations
 
                     b.Property<string>("Nome");
 
-                    b.Property<int?>("ValorId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
-                    b.HasIndex("ValorId");
-
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Usuario", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -85,7 +85,7 @@ namespace LojaNemesis.Migrations
                     b.ToTable("Usuario");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Venda", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Venda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -105,7 +105,7 @@ namespace LojaNemesis.Migrations
                     b.ToTable("Venda");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.VendaProduto", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.VendaProduto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -127,28 +127,31 @@ namespace LojaNemesis.Migrations
                     b.ToTable("VendaProduto");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.Produto", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Preco", b =>
                 {
-                    b.HasOne("LojaTrabalhoFinal.Infra.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId");
-
-                    b.HasOne("LojaTrabalhoFinal.Infra.Models.Preco", "Valor")
-                        .WithMany()
-                        .HasForeignKey("ValorId");
+                    b.HasOne("LojaNemesis.Infra.Models.Produto")
+                        .WithMany("HistoricoPreco")
+                        .HasForeignKey("ProdutoId");
                 });
 
-            modelBuilder.Entity("LojaTrabalhoFinal.Infra.Models.VendaProduto", b =>
+            modelBuilder.Entity("LojaNemesis.Infra.Models.Produto", b =>
                 {
-                    b.HasOne("LojaTrabalhoFinal.Infra.Models.Preco", "Preco")
+                    b.HasOne("LojaNemesis.Infra.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+                });
+
+            modelBuilder.Entity("LojaNemesis.Infra.Models.VendaProduto", b =>
+                {
+                    b.HasOne("LojaNemesis.Infra.Models.Preco", "Preco")
                         .WithMany()
                         .HasForeignKey("PrecoId");
 
-                    b.HasOne("LojaTrabalhoFinal.Infra.Models.Produto", "Produto")
+                    b.HasOne("LojaNemesis.Infra.Models.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId");
 
-                    b.HasOne("LojaTrabalhoFinal.Infra.Models.Venda", "Venda")
+                    b.HasOne("LojaNemesis.Infra.Models.Venda", "Venda")
                         .WithMany()
                         .HasForeignKey("VendaId");
                 });

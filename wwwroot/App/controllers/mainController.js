@@ -19,13 +19,14 @@ angular.module('nemesisApp').controller('mainController',
 
     $scope.menus = [];
 
-    if ($rootScope.user.tipo.toUpperCase() == 'ADMIN'){
+    if ($rootScope.user.tipo.toUpperCase() == 'ADMIN') {
       $scope.menus.push({ name: 'Usuários', location: '/users' });
-      $scope.menus.push({ name: 'Categorias', location: '/category' });      
-      $scope.menus.push({ name: 'Produtos', location: '/product' });      
-    }
-
-    $scope.menus.push({ name: 'Pedidos', location: '/orders' });
+      $scope.menus.push({ name: 'Categorias', location: '/category' });
+      $scope.menus.push({ name: 'Produtos', location: '/product' });
+      $scope.menus.push({ name: 'Pedidos', location: '/order' });
+    }else{
+      $scope.menus.push({ name: 'Meus Pedidos', location: '/order' });
+    }    
 
     $scope.changeLocation = function (menu) {
       $location.path(menu.location);

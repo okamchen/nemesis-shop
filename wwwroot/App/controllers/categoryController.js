@@ -1,4 +1,4 @@
-angular.module('nemesisApp').controller('categoryController', function ($scope, $rootScope, $http, $mdDialog) {
+angular.module('nemesisApp').controller('categoryController', function ($scope, $http, $mdDialog) {
 
   $scope.profissions = [];
 
